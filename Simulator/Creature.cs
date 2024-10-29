@@ -66,4 +66,21 @@ internal class Creature
         }
     }
 
+    public void Go (Direction direction)
+    {
+        string direction_lowercase = direction.ToString().ToLower();
+        Console.WriteLine($"{name} goes to {direction_lowercase}");
+    }
+
+    public void Go (Direction[] directions)
+    {
+        foreach (var direction in directions) Go(direction);
+    }
+
+    public void Go (string directions)
+    {
+        Direction[] direction_parsed = DirectionParser.Parse(directions);
+        Go(direction_parsed);
+    }
+
 }
