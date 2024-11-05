@@ -2,8 +2,6 @@
 
 internal class Orc: Creature
 {
-    //public int Rage { get; set; } = 1;
-
     private int rage;
     private int hunt_count = 0;
     public int Rage
@@ -11,19 +9,7 @@ internal class Orc: Creature
         get { return rage; }
         init
         {
-            if (value < 1)
-            {
-                rage = 1;
-            }
-            else if (value > 10)
-            {
-                rage = 10;
-            }
-            else
-            {
-                rage = value;
-            }
-
+            rage = Validator.Limiter(value, 0, 10);
         }
     }
     public override int Power => 7 * Level + 3 * rage;
@@ -45,4 +31,5 @@ internal class Orc: Creature
         Rage = rage;
     }
     public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my rage is {rage}.");
+    public override string Info => $"{Name} [{Level}][{Rage}]";
 }

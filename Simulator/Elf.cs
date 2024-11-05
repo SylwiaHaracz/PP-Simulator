@@ -2,7 +2,6 @@
 
 internal class Elf: Creature
 {
-    //public int Agility { get; set; } = 1;
     private int agility;
     private int sing_count = 0;
     public int Agility
@@ -10,19 +9,7 @@ internal class Elf: Creature
         get { return agility; }
         init
         {
-            if (value < 1)
-            {
-                agility = 1;
-            }
-            else if (value > 10)
-            {
-                agility = 10;
-            }
-            else
-            {
-                agility = value;
-            }
-
+            agility = Validator.Limiter(value, 0, 10);
         }
     }
     public override int Power => 8 * Level + 2 * agility;
@@ -44,4 +31,5 @@ internal class Elf: Creature
         Agility = agility;
     }
     public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my agility is {agility}.");
+    public override string Info => $"{Name} [{Level}][{Agility}]";
 }

@@ -9,17 +9,7 @@ public abstract class Creature
         get { return name; }
         init
         {
-            name = value.Trim();
-            if (name.Length > 25)
-            {
-                name = name.Substring(0, 25);
-                name = name.Trim();
-            }
-            if (name.Length < 3)
-            {
-                name = name.PadRight(3, '#');
-            }
-            name = name[0].ToString().ToUpper() + name.Substring((1));
+            name = Validator.Shortener(value, 3, 25, '#');
             
         }
         
@@ -28,26 +18,11 @@ public abstract class Creature
     {
         get { return level; }
         init 
-        { 
-            if (value < 1)
-            {
-                level = 1;
-            }
-            else if (value > 10)
-            {
-                level = 10;
-            }
-            else
-            {
-                level = value;
-            }
-            
+        {
+            level = Validator.Limiter(value, 1, 10);
         }
     }
-    public string Info
-    {
-        get { return $"{name} [{level}]"; }
-    }
+    public abstract string Info { get; }
     public Creature(string name, int level = 1)
     {
         Name = name;
@@ -55,7 +30,6 @@ public abstract class Creature
     }
     public Creature() {}
     public abstract void SayHi();
-
     public void Upgrade()
     {
         if (level < 10)
@@ -63,22 +37,23 @@ public abstract class Creature
             level++;
         }
     }
-
     public void Go (Direction direction)
     {
         string direction_lowercase = direction.ToString().ToLower();
         Console.WriteLine($"{name} goes to {direction_lowercase}");
     }
-
     public void Go (Direction[] directions)
     {
         foreach (var direction in directions) Go(direction);
     }
-
     public void Go (string directions)
     {
         Direction[] direction_parsed = DirectionParser.Parse(directions);
         Go(direction_parsed);
     }
     public abstract int Power { get; }
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
+    }
 }

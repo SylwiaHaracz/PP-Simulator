@@ -22,8 +22,12 @@ public class Animals
         }
     }
     public uint Size { get; set; } = 3;
-    public string Info
+    public virtual string Info
     {
         get { return $"{Description} <{Size}>"; }
+    }
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
     }
 }
