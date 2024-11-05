@@ -1,9 +1,9 @@
 ﻿namespace Simulator;
 
-internal class Creature
+public abstract class Creature
 {
     private string name = "Unknown";
-    private int level;
+    private int level=1;
 
     public string Name {
         get { return name; }
@@ -26,6 +26,7 @@ internal class Creature
     }
     public int Level
     {
+        get { return level; }
         init 
         { 
             if (value < 1)
@@ -53,10 +54,7 @@ internal class Creature
         Level = level;
     }
     public Creature() {}
-    public void SayHi()
-    {
-        Console.WriteLine($"Hi, I'm {name}, my level is {level}.");
-    }
+    public abstract void SayHi();
 
     public void Upgrade()
     {
@@ -82,5 +80,5 @@ internal class Creature
         Direction[] direction_parsed = DirectionParser.Parse(directions);
         Go(direction_parsed);
     }
-
+    public abstract int Power { get; }
 }
