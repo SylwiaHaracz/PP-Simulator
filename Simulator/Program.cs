@@ -2,61 +2,49 @@
 
 internal class Program
 {
-    static void Lab4a()
+    static void Lab5a()
     {
-        Console.WriteLine("HUNT TEST\n");
-        var o = new Orc() { Name = "Gorbag", Rage = 7 };
-        o.SayHi();
-        for (int i = 0; i < 10; i++)
+        Point p = new(10, 25);
+        Console.WriteLine(p.Next(Direction.Right));          
+        Console.WriteLine(p.NextDiagonal(Direction.Right));  
+
+        Rectangle r1 = new Rectangle(1, 1, 5, 5);
+        Console.WriteLine($"Rectangle: {r1}");
+
+        Rectangle r2 = new(3, 4, 1, 2);
+        Console.WriteLine($"Rectangle: {r2}");
+
+        try
         {
-            o.Hunt();
-            o.SayHi();
+            Rectangle r3 = new Rectangle(1, 1, 1, 5);
+            Console.WriteLine($"Wrong rectangle: {r3}");
+        }
+        catch(ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
         }
 
-        Console.WriteLine("\nSING TEST\n");
-        var e = new Elf("Legolas", agility: 2);
-        e.SayHi();
-        for (int i = 0; i < 10; i++)
-        {
-            e.Sing();
-            e.SayHi();
-        }
+        Point point1 = new Point(3, 3);
+        Point point2 = new Point(6, 6);
+        Point point3 = new Point(-1, -2);
+        Point point4 = new Point(-8, -12);
 
-        Console.WriteLine("\nPOWER TEST\n");
-        Creature[] creatures = {
-        o,
-        e,
-        new Orc("Morgash", 3, 8),
-        new Elf("Elandor", 5, 3)
-    };
-        foreach (Creature creature in creatures)
-        {
-            Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
-        }
-    }
-    static void Lab4b()
-    {
-        object[] myObjects = {
-        new Animals() { Description = "dogs"},
-        new Birds { Description = "  eagles ", Size = 10 },
-        new Elf("e", 15, -3),
-        new Orc("morgash", 6, 4)
-    };
-        Console.WriteLine("\nMy objects:");
-        foreach (var o in myObjects) Console.WriteLine(o);
-        /*
-            My objects:
-            ANIMALS: Dogs <3>
-            BIRDS: Eagles (fly+) <10>
-            ELF: E## [10][0]
-            ORC: Morgash [6][4]
-        */
+        Rectangle r4 = new Rectangle(point1, point2);
+        Console.WriteLine($"Rectangle: {r4}");
+
+        Console.WriteLine("-----");
+
+        Rectangle r5 = new Rectangle(-3, -5, 5, 5);
+        Console.WriteLine($"Rectangle: {r5}");
+
+        Console.WriteLine($"Contains (3,3) -  {r5.Contains(point1)}");
+        Console.WriteLine($"Contains (6,6) -  {r5.Contains(point2)}");
+        Console.WriteLine($"Contains (-1,-2) -  {r5.Contains(point3)}");
+        Console.WriteLine($"Contains (-8,-12) -  {r5.Contains(point4)}");
     }
     static void Main(string[] args)
     {
         Console.WriteLine("Starting Simulator!\n");
-        Lab4a();
-        Lab4b();
-
+        Lab5a();
     }
 }
