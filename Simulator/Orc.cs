@@ -23,13 +23,12 @@ internal class Orc: Creature
                 rage++;
             }
         }
-        Console.WriteLine($"{Name} is hunting.");
     }
     public Orc() { }
     public Orc(string name, int level = 1, int rage = 1) : base(name, level)
     {
         Rage = rage;
     }
-    public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my rage is {rage}.");
+    public override string Greeting() => $"Hi, I'm {Name}, my level is {Level}, my rage is {rage}.";
     public override string Info => $"{Name} [{Level}][{Rage}]";
 }

@@ -23,13 +23,12 @@ internal class Elf: Creature
                 agility++;
             }
         }
-        Console.WriteLine($"{Name} is singing.");
     }
     public Elf() { }
     public Elf(string name, int level = 1, int agility = 1) : base(name, level)
     {
         Agility = agility;
     }
-    public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my agility is {agility}.");
+    public override string Greeting() => $"Hi, I'm {Name}, my level is {Level}, my rage is {agility}.";
     public override string Info => $"{Name} [{Level}][{Agility}]";
 }

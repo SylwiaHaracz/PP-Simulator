@@ -29,7 +29,7 @@ public abstract class Creature
         Level = level;
     }
     public Creature() {}
-    public abstract void SayHi();
+    public abstract string Greeting();
     public void Upgrade()
     {
         if (level < 10)
@@ -37,19 +37,20 @@ public abstract class Creature
             level++;
         }
     }
-    public void Go (Direction direction)
+    public string Go (Direction direction)=> $"{direction.ToString().ToLower()}";
+    public string[] Go (Direction[] directions)
     {
-        string direction_lowercase = direction.ToString().ToLower();
-        Console.WriteLine($"{name} goes to {direction_lowercase}");
+        var result = new string[directions.Length];
+        for (int i=0; i<directions.Length; i++)
+        {
+            result[i] = Go(directions[i]);
+        }
+        return result;
     }
-    public void Go (Direction[] directions)
-    {
-        foreach (var direction in directions) Go(direction);
-    }
-    public void Go (string directions)
+    public string[] Go (string directions)
     {
         Direction[] direction_parsed = DirectionParser.Parse(directions);
-        Go(direction_parsed);
+        return Go(direction_parsed);
     }
     public abstract int Power { get; }
     public override string ToString()
