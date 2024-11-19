@@ -17,7 +17,7 @@ public static class Validator
 
     public static string Shortener(string value, int min, int max, char placeholder)
     {
-        value.Trim();
+        value = value.Trim();
         if (value.Length > max)
         {
             value = value.Substring(0, max);
@@ -25,7 +25,7 @@ public static class Validator
         }
         if (value.Length < min)
         {
-            value = value.PadRight(3, placeholder);
+            value = value.PadRight(min, placeholder);
         }
         value = value[0].ToString().ToUpper() + value.Substring((1));
         return value;
