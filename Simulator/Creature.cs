@@ -1,7 +1,18 @@
 ﻿namespace Simulator;
 
+using Simulator.Maps;
 public abstract class Creature
 {
+
+    public Map? Map { get; private set; }
+    public Point Position {get; private set;}
+
+    public void InitMapAndPosition(Map map, Point position)
+    {
+
+    }
+
+
     private string name = "Unknown";
     private int level=1;
 
@@ -38,18 +49,26 @@ public abstract class Creature
         }
     }
     public string Go (Direction direction)=> $"{direction.ToString().ToLower()}";
-    public string[] Go (Direction[] directions)
+    public List<string> Go (List<Direction> directions)
     {
-        var result = new string[directions.Length];
-        for (int i=0; i<directions.Length; i++)
+        
+        
+        //Map.Next(); - musi chodzić po dobrej mapie
+        //Map.Next() == Position -> i wtedy nie wykonujemy ruchu
+        
+        // Map.Move()
+
+
+        var result = new List<string>(directions.Count);
+        for (int i=0; i<directions.Count; i++)
         {
             result[i] = Go(directions[i]);
         }
         return result;
     }
-    public string[] Go (string directions)
+    public List<string> Go (string directions)
     {
-        Direction[] direction_parsed = DirectionParser.Parse(directions);
+        List<Direction> direction_parsed = DirectionParser.Parse(directions);
         return Go(direction_parsed);
     }
     public abstract int Power { get; }

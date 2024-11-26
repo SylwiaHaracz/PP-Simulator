@@ -10,7 +10,35 @@ public abstract class Map
     /// </summary>
     /// <param name="p">Point to check.</param>
     /// <returns></returns>
-    public abstract bool Exist(Point p);
+
+
+
+    //Add(Creature, Point)
+    //Remove(Creature, Point)
+    //Move()  -> Remove+add
+    //At(Point)  a druga x i y
+
+
+    private readonly Rectangle _map;
+    public int SizeX { get; }
+    public int SizeY { get; }
+
+    protected Map(int sizeX, int sizeY)
+    {
+        if(sizeX<5)
+        {
+            throw new ArgumentOutOfRangeException(nameof(sizeX), "Map too small");
+        }
+        if (sizeY < 5)
+        {
+            throw new ArgumentOutOfRangeException(nameof(sizeY), "Map too small");
+        }
+        SizeX = sizeX;
+        SizeY = sizeY;
+        _map = new Rectangle(0,0,SizeX-1,SizeY-1);
+    }
+
+    public virtual bool Exist(Point p) => _map.Contains(p);
 
     /// <summary>
     /// Next position to the point in a given direction.

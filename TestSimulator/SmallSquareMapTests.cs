@@ -14,7 +14,8 @@ public class SmallSquareMapTests
     public void SmallSquareMap_Create_ShouldNotThrowAnException(int size)
     {
         var map = new SmallSquareMap(size);
-        Assert.Equal(size, map.Size);
+        Assert.Equal(size, map.SizeX);
+        Assert.Equal(size, map.SizeY);
     }
     [Theory]
     [InlineData(4)]
