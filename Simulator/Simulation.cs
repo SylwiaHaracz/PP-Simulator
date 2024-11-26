@@ -53,8 +53,8 @@ public class Simulation
     /// </summary>
     public Simulation(Map map, List<Creature> creatures,
         List<Point> positions, string moves)
-    { 
-        if (creatures== null || creatures.Count == 0)
+    {
+        if (creatures == null || creatures.Count == 0)
         {
             throw new ArgumentException("Creature's list is empty.");
         }
@@ -66,6 +66,20 @@ public class Simulation
         Creatures = creatures;
         Positions = positions;
         Moves = moves;
+
+        for (int i = 0; i < creatures.Count; i++)
+        {
+            var creature = creatures[i];
+            var position = positions[i];
+
+            if (!map.Exist(position))
+            {
+                throw new ArgumentException($"Position {position} is outside the bounds of the map.");
+            }
+            creature.InitMapAndPosition(map, position);
+
+            map.Add(creature, position);
+        }
     }
 
     /// <summary>

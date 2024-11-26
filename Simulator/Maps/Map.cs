@@ -67,8 +67,8 @@ public abstract class Map
         if (Fields[x, y] == null)
         {
             Fields[x, y] = new List<Creature>();
-            Fields[x, y]?.Add(c);
         }
+        Fields[x, y]?.Add(c);
     }
     
     public void Remove(Creature c, Point p)

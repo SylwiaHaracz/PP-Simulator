@@ -9,7 +9,8 @@ public abstract class Creature
 
     public void InitMapAndPosition(Map map, Point position)
     {
-
+        Map = map;
+        Position = position;
     }
 
     private string name = "Unknown";

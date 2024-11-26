@@ -1,6 +1,6 @@
 ﻿namespace Simulator;
 
-internal class Elf: Creature
+public class Elf: Creature
 {
     private int agility;
     private int sing_count = 0;

@@ -1,6 +1,6 @@
 ﻿namespace Simulator;
 
-internal class Orc: Creature
+public class Orc: Creature
 {
     private int rage;
     private int hunt_count = 0;
