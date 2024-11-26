@@ -12,7 +12,6 @@ public abstract class Creature
 
     }
 
-
     private string name = "Unknown";
     private int level=1;
 
@@ -48,28 +47,14 @@ public abstract class Creature
             level++;
         }
     }
-    public string Go (Direction direction)=> $"{direction.ToString().ToLower()}";
-    public List<string> Go (List<Direction> directions)
+    public void Go (Direction directions)
     {
-        
-        
-        //Map.Next(); - musi chodzić po dobrej mapie
-        //Map.Next() == Position -> i wtedy nie wykonujemy ruchu
-        
-        // Map.Move()
-
-
-        var result = new List<string>(directions.Count);
-        for (int i=0; i<directions.Count; i++)
+        if (Map != null)
         {
-            result[i] = Go(directions[i]);
+            var nextPosition = Map.Next(Position, directions);
+            Map.Move(this, Position, nextPosition);
+            Position = nextPosition;
         }
-        return result;
-    }
-    public List<string> Go (string directions)
-    {
-        List<Direction> direction_parsed = DirectionParser.Parse(directions);
-        return Go(direction_parsed);
     }
     public abstract int Power { get; }
     public override string ToString()
