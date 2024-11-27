@@ -13,7 +13,7 @@ public class Simulation
     /// <summary>
     /// Creatures moving on the map.
     /// </summary>
-    public List<Creature> Creatures { get; }
+    public List<IMappable> Creatures { get; }
 
     /// <summary>
     /// Starting positions of creatures.
@@ -37,7 +37,7 @@ public class Simulation
     /// <summary>
     /// Creature which will be moving current turn.
     /// </summary>
-    public Creature CurrentCreature => Creatures[_currentTurnIndex % Creatures.Count];
+    public IMappable CurrentCreature => Creatures[_currentTurnIndex % Creatures.Count];
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
@@ -51,7 +51,7 @@ public class Simulation
     /// if number of creatures differs from 
     /// number of starting positions.
     /// </summary>
-    public Simulation(Map map, List<Creature> creatures,
+    public Simulation(Map map, List<IMappable> creatures,
         List<Point> positions, string moves)
     {
         if (creatures == null || creatures.Count == 0)
@@ -104,7 +104,7 @@ public class Simulation
             return;
         }
         Direction direction = parsedDirections[0];
-        Creature currentCreature = CurrentCreature;
+        IMappable currentCreature = CurrentCreature;
         Point oldPosition = currentCreature.Position;
         Point newPosition = Map.Next(oldPosition, direction);
         if (Map.Exist(newPosition))

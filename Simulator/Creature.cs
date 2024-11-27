@@ -1,7 +1,7 @@
 ﻿namespace Simulator;
 
 using Simulator.Maps;
-public abstract class Creature
+public abstract class Creature: IMappable
 {
 
     public Map? Map { get; private set; }

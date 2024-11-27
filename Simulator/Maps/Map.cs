@@ -13,8 +13,8 @@ public abstract class Map
 
 
 
-    //Add(Creature, Point)
-    //Remove(Creature, Point)
+    //Add(IMappable, Point)
+    //Remove(IMappable, Point)
     //Move()  -> Remove+add
     //At(Point)  a druga x i y
 
@@ -23,7 +23,7 @@ public abstract class Map
     public int SizeX { get; }
     public int SizeY { get; }
 
-    protected abstract List<Creature>?[,] Fields { get; }
+    protected abstract List<IMappable>?[,] Fields { get; }
 
     protected Map(int sizeX, int sizeY)
     {
@@ -59,54 +59,15 @@ public abstract class Map
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
 
-    public void Add(Creature c, Point p)
-    {
-        int x = p.X;
-        int y = p.Y;
+    public abstract void Add(IMappable c, Point p);
 
-        if (Fields[x, y] == null)
-        {
-            Fields[x, y] = new List<Creature>();
-        }
-        Fields[x, y]?.Add(c);
-    }
-    
-    public void Remove(Creature c, Point p)
-    {
-        int x = p.X;
-        int y = p.Y;
-        if (Fields[x, y] != null)
-        {
-            Fields[x, y]?.Remove(c);
-            if (Fields[x,y]?.Count == 0)
-            {
-                Fields[x, y] = null;
-            }
-        }
-    }
-    
-    public void Move(Creature c, Point point1, Point point2)
-    {
-        Remove(c, point1);
-        Add(c, point2);
-    }
-    
-    public List<Creature> At(Point p)
-    {
-        int x = p.X;
-        int y = p.Y;
-        var creatures = new List<Creature>();
-        if (Fields[x, y] != null)
-        {
-            creatures.AddRange(Fields[x, y]);
-        }
-        return creatures;
-    }
-    
-    public List<Creature> At(int x, int y) 
-    {
-        return At(new Point(x, y));
-    }
+    public abstract void Remove(IMappable c, Point p);
+
+    public abstract void Move(IMappable c, Point point1, Point point2);
+
+    public abstract List<IMappable> At(Point p);
+
+    public abstract List<IMappable> At(int x, int y);
     
 
 }
