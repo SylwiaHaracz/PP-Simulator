@@ -40,6 +40,21 @@ public class MapVisualizer
                     {
                         Console.Write('O');
                     }
+                    else if (creature is Birds bird)
+                    {
+                        if (bird.CanFly)
+                        {
+                            Console.Write('B');
+                        }
+                        else
+                        {
+                            Console.Write('b');
+                        }
+                    }
+                    else if (creature is Animals)
+                    {
+                        Console.Write('A');
+                    }
                     else
                     {
                         Console.Write('X'); 
