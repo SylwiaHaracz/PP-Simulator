@@ -26,4 +26,5 @@ public class Birds: Animals
             }
         }
     }
+    public override char Symbol => CanFly ? 'B' : 'b';
 }

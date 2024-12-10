@@ -44,4 +44,6 @@ public class Animals :IMappable
     {
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
+    public virtual char Symbol => 'A';
+
 }

@@ -10,10 +10,10 @@ namespace SimConsole
         {
             Console.WriteLine("Hello, World!");
             Console.OutputEncoding = Encoding.UTF8;
-            SmallTorusMap map = new(8,6);
+            BigBounceMap map = new(8,6);
             List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor"), new Animals("Rabbits", 23), new Birds("Eagles", 8), new Birds("Ostriches", 15, false)];
             List<Point> points = [new(2, 2), new(3, 1), new(4,3), new(1,1), new(0, 4)];
-            string moves = "dlrludlrlldurdl";
+            string moves = "dlrludlrlldurdlrrrrr";
             Simulation simulation = new(map, creatures, points, moves);
             MapVisualizer mapVisualizer = new(simulation.Map);
 

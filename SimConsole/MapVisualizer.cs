@@ -32,33 +32,7 @@ public class MapVisualizer
                 if (creatures != null && creatures.Count > 0)
                 {
                     var creature = creatures[0];
-                    if (creature is Elf)
-                    {
-                        Console.Write('E');
-                    }
-                    else if (creature is Orc)
-                    {
-                        Console.Write('O');
-                    }
-                    else if (creature is Birds bird)
-                    {
-                        if (bird.CanFly)
-                        {
-                            Console.Write('B');
-                        }
-                        else
-                        {
-                            Console.Write('b');
-                        }
-                    }
-                    else if (creature is Animals)
-                    {
-                        Console.Write('A');
-                    }
-                    else
-                    {
-                        Console.Write('X'); 
-                    }  
+                    Console.Write($"{creature.Symbol}");
                 }
                 else
                 {

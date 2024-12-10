@@ -62,4 +62,5 @@ public abstract class Creature: IMappable
     {
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
+    public abstract char Symbol { get; }
 }
