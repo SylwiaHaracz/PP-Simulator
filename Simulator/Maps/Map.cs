@@ -11,19 +11,9 @@ public abstract class Map
     /// <param name="p">Point to check.</param>
     /// <returns></returns>
 
-
-
-    //Add(IMappable, Point)
-    //Remove(IMappable, Point)
-    //Move()  -> Remove+add
-    //At(Point)  a druga x i y
-
-
     private readonly Rectangle _map;
     public int SizeX { get; }
     public int SizeY { get; }
-
-    protected abstract List<IMappable>?[,] Fields { get; }
 
     protected Map(int sizeX, int sizeY)
     {
@@ -48,7 +38,10 @@ public abstract class Map
     /// <param name="p">Starting point.</param>
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
-    public abstract Point Next(Point p, Direction d);
+    public virtual Point Next(Point p, Direction d)
+    {
+        return p.Next(d);
+    }
 
     /// <summary>
     /// Next diagonal position to the point in a given direction 
@@ -57,17 +50,48 @@ public abstract class Map
     /// <param name="p">Starting point.</param>
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
-    public abstract Point NextDiagonal(Point p, Direction d);
+    public virtual Point NextDiagonal(Point p, Direction d)
+    {
+        return p.NextDiagonal(d);
+    }
 
-    public abstract void Add(IMappable c, Point p);
-
-    public abstract void Remove(IMappable c, Point p);
-
-    public abstract void Move(IMappable c, Point point1, Point point2);
-
-    public abstract List<IMappable> At(Point p);
-
-    public abstract List<IMappable> At(int x, int y);
-    
-
+    private Dictionary<Point, List<IMappable>> keyValuePairs = new Dictionary<Point, List<IMappable>>();
+    public virtual void Add(IMappable m, Point p)
+    {
+        if (!Exist(p))
+            throw new ArgumentException($"Punkt {p} jest poza granicami mapy.");
+        if (!keyValuePairs.ContainsKey(p))
+        {
+            keyValuePairs[p] = new List<IMappable>();
+        }
+        keyValuePairs[p].Add(m);
+    }
+    public virtual void Remove(IMappable m, Point p)
+    {
+        if (keyValuePairs.ContainsKey(p))
+        {
+            keyValuePairs[p].Remove(m);
+            if (keyValuePairs[p].Count == 0)
+            {
+                keyValuePairs.Remove(p);
+            }
+        }
+    }
+    public virtual void Move(IMappable m, Point point1, Point point2)
+    {
+        Remove(m, point1);
+        Add(m, point2);
+    }
+    public virtual List<IMappable> At(Point p)
+    {
+        if (keyValuePairs.ContainsKey(p))
+        {
+            return keyValuePairs[p];
+        }
+        return new List<IMappable>();
+    }
+    public virtual List<IMappable> At(int x, int y)
+    {
+        return At(new Point(x, y));
+    }
 }
