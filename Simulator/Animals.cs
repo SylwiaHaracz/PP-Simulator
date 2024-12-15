@@ -7,7 +7,7 @@ public class Animals :IMappable
     public Point Position { get; set; }
 
     private string description = "Unknown";
-    public string Description 
+    public string Description
     {
         get { return description; }
         init

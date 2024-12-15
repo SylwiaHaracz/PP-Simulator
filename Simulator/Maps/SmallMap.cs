@@ -9,7 +9,7 @@ public abstract class SmallMap:Map
     {
         if (sizeX > 20) throw new ArgumentOutOfRangeException(nameof(sizeX), "Map too wide");
         if (sizeY > 20) throw new ArgumentOutOfRangeException(nameof(sizeX), "Map too high");
-        _fields = new List<IMappable>[sizeX, sizeY];
+        _fields = new List<IMappable>?[sizeX, sizeY];
     }
     protected override List<IMappable>?[,] Fields => _fields;
     public override void Add(IMappable c, Point p)
@@ -21,16 +21,19 @@ public abstract class SmallMap:Map
         {
             Fields[x, y] = new List<IMappable>();
         }
-        Fields[x, y]?.Add(c);
+        Fields[x, y]!.Add(c);
     }
-    public override void Remove(IMappable c, Point p)
+    public override void Remove(IMappable creature, Point p)
     {
         int x = p.X;
         int y = p.Y;
-        if (Fields[x, y] != null)
+
+        var creatures = Fields[x, y];
+        if (creatures != null)
         {
-            Fields[x, y]?.Remove(c);
-            if (Fields[x, y]?.Count == 0)
+            creatures.RemoveAll(c => c == creature);
+
+            if (creatures.Count == 0)
             {
                 Fields[x, y] = null;
             }
@@ -47,12 +50,13 @@ public abstract class SmallMap:Map
     {
         int x = p.X;
         int y = p.Y;
-        var creatures = new List<IMappable>();
-        if (Fields[x, y] != null)
+        var creaturesAtPoint = new List<IMappable>();
+        var creatures = Fields[x, y];
+        if (creatures != null)
         {
-            creatures.AddRange(Fields[x, y]);
+            creaturesAtPoint.AddRange(creatures);
         }
-        return creatures;
+        return creaturesAtPoint;
     }
 
     public override List<IMappable> At(int x, int y)

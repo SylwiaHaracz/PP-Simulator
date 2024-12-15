@@ -14,7 +14,6 @@ public class MapVisualizer
 
     public void Draw()
     {
-        Console.Clear();
         Console.Write(Box.TopLeft);
         for (int x = 0; x < _map.SizeX; x++)
         {
@@ -29,7 +28,11 @@ public class MapVisualizer
             for (int x = 0; x < _map.SizeX; x++)
             {
                 var creatures = _map.At(new Point(x, y));
-                if (creatures != null && creatures.Count > 0)
+                if (creatures.Count > 1)
+                {
+                    Console.Write('X');
+                }
+                else if (creatures.Count == 1)
                 {
                     var creature = creatures[0];
                     Console.Write($"{creature.Symbol}");
@@ -66,4 +69,3 @@ public class MapVisualizer
         Console.WriteLine(Box.BottomRight);
     }
 }
- 

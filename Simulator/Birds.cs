@@ -12,18 +12,9 @@ public class Birds: Animals
     {
         if (Map != null)
         {
-            if (CanFly)
-            {
-                var nextPosition = Map.Next(Map.Next(Position, direction), direction);
-                Map.Move(this, Position, nextPosition);
-                Position = nextPosition;
-            }
-            else
-            {
-                var nextPosition = Map.NextDiagonal(Position, direction);
-                Map.Move(this, Position, nextPosition);
-                Position = nextPosition;
-            }
+            Point nextPosition = CanFly ? Map.Next(Map.Next(Position, direction), direction) : Map.NextDiagonal(Position, direction);
+            Map.Move(this, Position, nextPosition);
+            Position = nextPosition;
         }
     }
     public override char Symbol => CanFly ? 'B' : 'b';

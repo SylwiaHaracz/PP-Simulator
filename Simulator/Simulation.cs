@@ -27,12 +27,12 @@ public class Simulation
     /// When all creatures make moves, 
     /// next move is again for first creature and so on.
     /// </summary>
-    public string Moves { get; }
+    public string Moves { get; private set; }
 
     /// <summary>
     /// Has all moves been done?
     /// </summary>
-    public bool Finished = false;
+    public bool Finished { get; private set; } = false;
 
     /// <summary>
     /// Creature which will be moving current turn.
@@ -60,7 +60,7 @@ public class Simulation
         }
         if (creatures.Count != positions.Count)
         {
-            throw new ArgumentException("Number of creatures is different from number of sstarting positions.");
+            throw new ArgumentException("Number of creatures is different from number of starting positions.");
         }
         Map = map;
         Creatures = creatures;
@@ -96,21 +96,11 @@ public class Simulation
         {
             throw new ArgumentException("Simulation finished.");
         }
-
-        List<Direction> parsedDirections = DirectionParser.Parse(CurrentMoveName);
-        if (parsedDirections.Count == 0)
+        var parsedDirections = DirectionParser.Parse(CurrentMoveName);
+        if (parsedDirections != null && parsedDirections.Count > 0)
         {
-            _currentTurnIndex++;
-            return;
-        }
-        Direction direction = parsedDirections[0];
-        IMappable currentCreature = CurrentCreature;
-        Point oldPosition = currentCreature.Position;
-        Point newPosition = Map.Next(oldPosition, direction);
-        if (Map.Exist(newPosition))
-        {
-            Map.Move(currentCreature, oldPosition, newPosition);
-            currentCreature.Go(direction);
+            var direction = parsedDirections[0];
+            CurrentCreature.Go(direction);
         }
         _currentTurnIndex++;
         if (_currentTurnIndex >= Moves.Length)
